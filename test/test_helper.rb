@@ -3,6 +3,7 @@ require 'minitest/autorun'
 require 'minitest/spec'
 require 'active_record'
 require 'activerecord/preload_query'
+require 'pry'
 
 ActiveRecord::Base.establish_connection(adapter: 'sqlite3', database: ':memory:')
 
