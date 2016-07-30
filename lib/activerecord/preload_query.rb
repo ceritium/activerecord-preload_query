@@ -1,3 +1,4 @@
+require 'active_support/lazy_load_hooks'
 require "activerecord/preload_query/version"
 
 ActiveSupport.on_load(:active_record) do
