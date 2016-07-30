@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Jose Galisteo"]
   spec.email         = ["ceritium@gmail.com"]
 
-  spec.summary       = %q{Write a short summary, because Rubygems requires one.}
+  spec.summary       = %q{Allow preload a querries}
   spec.description   = %q{Write a longer description or delete this line.}
   spec.homepage      = "https://github.com/ceritium/activerecord-preload_query"
   spec.license       = "MIT"
