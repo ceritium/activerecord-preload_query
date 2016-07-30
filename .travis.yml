@@ -5,20 +5,31 @@ rvm:
   - 2.2.3
   - 2.3.1
   - ruby-head
+
 gemfile:
   - Gemfile
-  - gemfiles/Gemfile-5-0
   - gemfiles/Gemfile-5-0-stable
+  - gemfiles/Gemfile-5-0
   - gemfiles/Gemfile-4-2-stable
+  - gemfiles/Gemfile-4-2
   - gemfiles/Gemfile-4-1-stable
+  - gemfiles/Gemfile-4-1
   - gemfiles/Gemfile-4-0-stable
+  - gemfiles/Gemfile-4-0
 
 matrix:
   allow_failures:
     - gemfile: gemfiles/Gemfile-4-2-stable
+      rvm: ruby-head
     - gemfile: gemfiles/Gemfile-4-1-stable
+      rvm: ruby-head
     - gemfile: gemfiles/Gemfile-4-0-stable
-
-
+      rvm: ruby-head
+    - gemfile: gemfiles/Gemfile-4-2
+      rvm: ruby-head
+    - gemfile: gemfiles/Gemfile-4-1
+      rvm: ruby-head
+    - gemfile: gemfiles/Gemfile-4-0
+      rvm: ruby-head
 
 before_install: gem install bundler -v 1.12.5
