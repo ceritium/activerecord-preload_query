@@ -1,5 +1,8 @@
 # Activerecord::PreloadQuery
 
+[![Build Status](https://travis-ci.org/ceritium/activerecord-preload_query.svg?branch=master)](https://travis-ci.org/ceritium/activerecord-preload_query)
+
+
 PreloadQuery allows you preload queries and have them available as would a relations and `preload` of ActiveRecord.
 
 For example, having `Category` and `Product` classes and a method that adds the price of products in a category like `self.sum_price`:
