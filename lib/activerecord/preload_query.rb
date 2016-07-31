@@ -7,6 +7,12 @@ ActiveSupport.on_load(:active_record) do
     delegate :preload_query, to: :scope
   end
 
+  class ActiveRecord::Base
+    class << self
+      delegate :preload_query, to: :all
+    end
+  end
+
   class ActiveRecord::Relation
     alias_method :origin_initialize, :initialize
 
