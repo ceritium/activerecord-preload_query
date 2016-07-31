@@ -44,4 +44,10 @@ describe 'preload_query' do
     assert_equal [0], categories.map(&:sum_price)
     assert_equal [2], categories.map(&:products_count)
   end
+
+  it 'model respond to preload_query' do
+    categories = Category.preload_query(:sum_price)
+    assert_equal [0, 200], categories.map(&:sum_price)
+  end
+
 end
