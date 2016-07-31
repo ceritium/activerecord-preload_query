@@ -1,8 +1,35 @@
 # Activerecord::PreloadQuery
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/activerecord/preload_query`. To experiment with that code, run `bin/console` for an interactive prompt.
+PreloadQuery allows you preload queries and have them available as would a relations and `preload` of ActiveRecord.
 
-TODO: Delete this and the text above, and describe your gem
+For example, having `Category` and `Product` classes and a method that adds the price of products in a category like `self.sum_price`:
+
+```ruby
+class Category < ActiveRecord::Base
+  has_many :products
+
+  class << self
+    def sum_price(ids)
+      where(id: ids).group("categories.id").joins(:products).select("categories.id, sum(products.price) AS sum_price")
+    end
+  end
+end
+
+class Product < ActiveRecord::Base
+  belongs_to :category
+end
+```
+
+We can do:
+
+```ruby
+Category.limit(10).preload_query(:sum_price).each do |caregory|
+  p category.name
+  p category.sum_price
+end
+```
+
+The method to be preloaded must return an enumerable and each element must respond to `id` and the same method name as you can see in the example.
 
 ## Installation
 
@@ -20,10 +47,6 @@ Or install it yourself as:
 
     $ gem install activerecord-preload_query
 
-## Usage
-
-TODO: Write usage instructions here
-
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
@@ -32,7 +55,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/activerecord-preload_query. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
+Bug reports and pull requests are welcome on GitHub at https://github.com/ceritium/activerecord-preload_query. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
 
 
 ## License
