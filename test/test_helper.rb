@@ -43,7 +43,10 @@ class Category < ActiveRecord::Base
     def sum_price(ids)
       where(id: ids).group("categories.id").joins(:products).select("categories.id, sum(products.price) AS sum_price")
     end
+  end
 
+  def sum_price2
+    products.sum(:price)
   end
 end
 
