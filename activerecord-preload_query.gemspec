@@ -9,8 +9,8 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Jose Galisteo"]
   spec.email         = ["ceritium@gmail.com"]
 
-  spec.summary       = %q{Allow preload a querries}
-  spec.description   = %q{Write a longer description or delete this line.}
+  spec.summary       = %q{Preload queries like relations.}
+  spec.description   = %q{PreloadQuery allows you preload queries and have them available as would a relations and `preload` of ActiveRecord.}
   spec.homepage      = "https://github.com/ceritium/activerecord-preload_query"
   spec.license       = "MIT"
 
