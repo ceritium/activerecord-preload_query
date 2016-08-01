@@ -9,45 +9,54 @@ describe 'preload_query' do
 
     @shop = Shop.create(name: 'shop')
 
+
     2.times do |i|
-      category = @shop.categories.create(name: "name-#{i}")
-      2.times do |j|
+      category = @shop.categories.create(name: "name-#{i}", sku: "sku#{i}")
+      (i+2).times do |j|
         category.products.create(name: "name-#{i}-#{j}", price: i * 100, stock: j + 3*i)
       end
     end
   end
 
-  it "preload_queries without relation" do
-    categories = Category.all.preload_query(:sum_price)
-    assert_equal [0, 200], categories.map(&:sum_price)
+  it 'test expected values' do
+    scope = Category.all
+    preload = scope.preload_query(:_sum_price, :_products_count)
+    assert_equal [0, 300], preload.map(&:_sum_price)
+    assert_equal [2, 3], preload.map(&:_products_count)
+
+    assert_equal [0, 300], scope.map(&:sum_price)
+    assert_equal [2, 3], scope.map(&:products_count)
   end
 
-  it "preload_queries with relation" do
-    categories = @shop.categories.preload_query(:sum_price)
-    assert_equal [0, 200], categories.map(&:sum_price)
+  it 'preload_queries without relation' do
+    scope = Category.all
+    preload = scope.preload_query(:_sum_price)
+    assert_equal scope.map(&:sum_price), preload.map(&:_sum_price)
+  end
+
+  it 'preload_queries with relation' do
+    scope = @shop.categories
+    preload = scope.preload_query(:_sum_price)
+    assert_equal scope.map(&:sum_price), preload.map(&:_sum_price)
   end
 
   it 'accept multiple items' do
-    categories = Category.all.preload_query(:sum_price, :products_count)
-    assert_equal [0, 200], categories.map(&:sum_price)
-    assert_equal [2, 2], categories.map(&:products_count)
+    scope = Category.all
+    preload = scope.preload_query(:_sum_price, :_products_count)
+    assert_equal scope.map(&:sum_price), preload.map(&:_sum_price)
+    assert_equal scope.map(&:products_count), preload.map(&:_products_count)
   end
 
   it 'allow chain methods' do
-    categories = Category.all.preload_query(:sum_price).preload_query(:products_count)
-    assert_equal [0, 200], categories.map(&:sum_price)
-    assert_equal [2, 2], categories.map(&:products_count)
-  end
-
-  it 'compatible with limit' do
-    categories = Category.all.preload_query(:sum_price, :products_count).limit(1)
-    assert_equal [0], categories.map(&:sum_price)
-    assert_equal [2], categories.map(&:products_count)
+    scope = Category.all
+    preload = scope.preload_query(:_sum_price).preload_query(:_products_count)
+    assert_equal scope.map(&:sum_price), preload.map(&:_sum_price)
+    assert_equal scope.map(&:products_count), preload.map(&:_products_count)
   end
 
   it 'model respond to preload_query' do
-    categories = Category.preload_query(:sum_price)
-    assert_equal [0, 200], categories.map(&:sum_price)
+    preload = Category.preload_query(:_sum_price)
+    assert_equal Category.all.map(&:sum_price), preload.map(&:_sum_price)
   end
 
 end
