@@ -26,7 +26,7 @@ end
 We can do:
 
 ```ruby
-Category.limit(10).preload_query(:sum_price).each do |caregory|
+Category.limit(10).preload_query(:sum_price).each do |category|
   p category.name
   p category.sum_price
 end
