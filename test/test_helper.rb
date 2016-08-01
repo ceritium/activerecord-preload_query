@@ -9,14 +9,15 @@ ActiveRecord::Base.establish_connection(adapter: 'sqlite3', database: ':memory:'
 
 ActiveRecord::Schema.verbose = false
 ActiveRecord::Schema.define do
-  create_table "categories" do |t|
+  create_table "categories", id: false do |t|
+    t.string "sku", primary: true
     t.string   "name"
     t.integer  "shop_id"
   end
 
   create_table "products" do |t|
     t.string   "name"
-    t.integer  "category_id"
+    t.string  "category_id"
     t.integer  "price"
     t.integer  "stock"
   end
@@ -31,19 +32,28 @@ class Shop < ActiveRecord::Base
 end
 
 class Category < ActiveRecord::Base
+  self.primary_key = 'sku'
+
   belongs_to :shop
   has_many :products
 
   class << self
 
-    def products_count(ids)
-      where(id: ids).group("categories.id").joins(:products).select("categories.id, count(products.id) AS products_count")
+    def _products_count(ids)
+      where(sku: ids).group("categories.sku").joins(:products).select("categories.sku, count(products.id) AS _products_count")
     end
 
-    def sum_price(ids)
-      where(id: ids).group("categories.id").joins(:products).select("categories.id, sum(products.price) AS sum_price")
+    def _sum_price(ids)
+      where(sku: ids).group("categories.sku").joins(:products).select("categories.sku, sum(products.price) AS _sum_price")
     end
+  end
 
+  def products_count
+    products.count
+  end
+
+  def sum_price
+    products.sum(:price)
   end
 end
 

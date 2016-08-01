@@ -33,10 +33,11 @@ ActiveSupport.on_load(:active_record) do
       records = origin_exec_queries
 
       # added
+      primary_key = @klass.primary_key.to_sym
       @preload_queries.each do |pc|
-        _tmp = @klass.send(pc, records.map(&:id)).map{|x| [x.id, x.send(pc)]}.to_h
+        _tmp = @klass.send(pc, records.map(&primary_key)).map{|x| [x.send(primary_key), x.send(pc)]}.to_h
         records.map do |record|
-          record.define_singleton_method pc, lambda { _tmp[record.id] }
+          record.define_singleton_method pc, lambda { _tmp[record.send(primary_key)] }
         end
       end
 
