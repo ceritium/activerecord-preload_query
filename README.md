@@ -1,5 +1,6 @@
 # Activerecord::PreloadQuery
 
+[![Gem Version](https://badge.fury.io/rb/activerecord-preload_query.svg)](https://badge.fury.io/rb/activerecord-preload_query)
 [![Build Status](https://travis-ci.org/ceritium/activerecord-preload_query.svg?branch=master)](https://travis-ci.org/ceritium/activerecord-preload_query)
 [![Code Climate](https://codeclimate.com/github/ceritium/activerecord-preload_query/badges/gpa.svg)](https://codeclimate.com/github/ceritium/activerecord-preload_query)
 
