@@ -1,6 +1,7 @@
 # Activerecord::PreloadQuery
 
 [![Build Status](https://travis-ci.org/ceritium/activerecord-preload_query.svg?branch=master)](https://travis-ci.org/ceritium/activerecord-preload_query)
+[![Code Climate](https://codeclimate.com/github/ceritium/activerecord-preload_query/badges/gpa.svg)](https://codeclimate.com/github/ceritium/activerecord-preload_query)
 
 
 PreloadQuery allows you preload queries and have them available as would a relations and `preload` of ActiveRecord.
