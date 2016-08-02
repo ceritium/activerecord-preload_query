@@ -25,6 +25,14 @@ ActiveRecord::Schema.define do
   create_table "shops" do |t|
     t.string   "name"
   end
+
+  create_table "tags", id: false do |t|
+    t.string "name"
+  end
+end
+
+class Tag < ActiveRecord::Base
+  self.primary_key = false
 end
 
 class Shop < ActiveRecord::Base

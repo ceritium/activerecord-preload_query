@@ -18,6 +18,10 @@ describe 'preload_query' do
     end
   end
 
+  it 'do not break models without primary_key' do
+    assert_equal Tag.all, []
+  end
+
   it 'test expected values' do
     scope = Category.all
     preload = scope.preload_query(:_sum_price, :_products_count)
