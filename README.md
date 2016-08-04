@@ -5,9 +5,9 @@
 [![Code Climate](https://codeclimate.com/github/ceritium/activerecord-preload_query/badges/gpa.svg)](https://codeclimate.com/github/ceritium/activerecord-preload_query)
 
 
-PreloadQuery allows you preload queries and have them available as would a relations and `preload` of ActiveRecord.
+PreloadQuery allows you to preload queries and have them available as the relations when use the `preload` method of ActiveRecord.
 
-For example, having `Category` and `Product` classes and a method that adds the price of products in a category like `self.sum_price`:
+For example, given `Category` and `Product` classes and a method that adds the products' prices in a category, like `self.sum_price`:
 
 ```ruby
 class Category < ActiveRecord::Base
@@ -25,7 +25,7 @@ class Product < ActiveRecord::Base
 end
 ```
 
-We can do:
+we can write:
 
 ```ruby
 Category.limit(10).preload_query(:sum_price).each do |category|
@@ -34,7 +34,7 @@ Category.limit(10).preload_query(:sum_price).each do |category|
 end
 ```
 
-The method to be preloaded must return an enumerable and each element must respond to `id` and the same method name as you can see in the example.
+The method to be preloaded must return an enumerable. Each element must respond to the primary_key of the class and the same method name.
 
 ## Installation
 
